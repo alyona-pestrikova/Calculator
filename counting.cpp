@@ -20,7 +20,7 @@ QString get_next_elem(QString& expr) {
        expr = expr.right(expr.length() - 2);
         return "pi";
     } else {
-        QString oper = "+-/x%=()";
+        QString oper = "+-/*%=()";
         QString nums = "0123456789.";
         if (oper.contains(expr.left(1))) {
             QString copy = expr.left(1);
@@ -43,7 +43,7 @@ Alg::Alg() {
     p = new Priority[8];
     p[0] = { "+", 1 };
     p[1] = { "-", 1 };
-    p[2] = { "x", 3 };
+    p[2] = { "*", 3 };
     p[3] = { "/", 3 };
     p[4] = {"mod", 2};
     p[5] = {"sqr", 3};
@@ -82,7 +82,7 @@ bool Alg::is_num(QString expr) {
 }
 
 bool Alg::is_oper(QString expr) {
-    if (expr == "sqrt" || expr == "sqr" || expr == "mod" || expr == "%" || expr == "+" || expr == "-" || expr == "x" || expr == "/") {
+    if (expr == "sqrt" || expr == "sqr" || expr == "mod" || expr == "%" || expr == "+" || expr == "-" || expr == "*" || expr == "/") {
         return true;
     }
     return false;
@@ -196,7 +196,7 @@ QString Alg::count(QString torpn) {
                     res = num1 + num2;
                 } else if (op == '-') {
                     res = num2 - num1;
-                } else if (op == 'x') {
+                } else if (op == '*') {
                     res = num2 * num1;
                 } else if (op == '/') {
                     res = num2 / num1;

@@ -44,7 +44,11 @@ void MainWindow::enter() //ввод строки
     if (ui->input_line->text().length() < 34) {
         if ((button->text() != '0' && button->text() != 'x' && button->text() != '/' && button->text() != "mod") ||
                 !ui->input_line->text().isEmpty()) {
-            ui->input_line->setText(ui->input_line->text() + button->text());
+            if (button->text() == "x") {
+                ui->input_line->setText(ui->input_line->text() + "*");
+            } else {
+                ui->input_line->setText(ui->input_line->text() + button->text());
+            }
         }
     }
 }
@@ -63,20 +67,6 @@ void MainWindow::on_pushButton_equal_clicked()
         QString s = ui->input_line->text() + '=';
         Analyzer a;
         if (a.str_test(s, 0)) {
-//            QString str = "";
-//            while (s.length() > 0) {
-//                str += getNextElem(s);
-//            }
-//            Alg RPN;
-//            QString* r = RPN.toRPN(str);
-//            QString s = "";
-//            for (int i = 0; i < 20; i++) {
-//                if (r[i].isEmpty()) {
-//                    break;
-//                }
-//                s.append(r[i]);
-//                s.append(" ");
-//            }
             Alg RPN;
 
             ui->resultPlace->setText(RPN.count(s));

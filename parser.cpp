@@ -26,7 +26,7 @@ void Analyzer::init_state_list() {
         {"0123456789", 1, 0, false},
         {"+-", 2, 0, false},
         {"=", 12, 0, true},
-        {"x/", 3, 0, false},
+        {"*/", 3, 0, false},
         {")", 5, -1, false},
         {"mod", 6, 0, false},
         {".", 10, 0, false},
@@ -66,7 +66,7 @@ void Analyzer::init_state_list() {
         {")", 5, -1, false},
         {"+-", 2, 0, false},
         {"=", 12, 0, true},
-        {"x/", 3, 0, false},
+        {"*/", 3, 0, false},
         {"mod", 6, 0, false},
         {"%", 11, 0, false}
     };
@@ -85,7 +85,7 @@ void Analyzer::init_state_list() {
         {")", 5, -1, false},
         {"+-", 2, 0, false},
         {"=", 12, 0, true},
-        {"x/", 3, 0, false},
+        {"*/", 3, 0, false},
         {"mod", 6, 0, false},
         {"%", 11, 0, false}
     };
@@ -118,7 +118,7 @@ void Analyzer::init_state_list() {
         {")", 5, -1, false},
         {"+-", 2, 0, false},
         {"=", 12, 0, true},
-        {"x/", 3, 0, false},
+        {"*/", 3, 0, false},
         {"mod", 6, 0, false}
     };
 }
@@ -179,7 +179,7 @@ bool Analyzer::str_test(QString s, int *pos) {
             s = s.right(s.length() - 2);
         } else {
             QChar c = s[0];
-            if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == 'x' || c == '/' || c == '%' || c == '=' || c == '.' || c == '(' || c == ')') {
+            if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '=' || c == '.' || c == '(' || c == ')') {
                 if (!next_state(s.left(1))) {
                     qDebug() << "ERR " << c;
                     return false;
