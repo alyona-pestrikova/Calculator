@@ -20,7 +20,8 @@ HEADERS += \
     parser.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    mainwindow_копия.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

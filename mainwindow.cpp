@@ -8,6 +8,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->centralwidget->setMinimumSize(170, 300);
+    ui->centralwidget->setMaximumSize(800, 1500);
+
+
+    ui->tableWidget->setColumnWidth(0, 271);
+    ui->tableWidget->setColumnWidth(1, 100);
+
     connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(enter()));
     connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(enter()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(enter()));
@@ -42,8 +49,7 @@ void MainWindow::enter() //ввод строки
 {
     QPushButton *button = (QPushButton *)sender();
     if (ui->input_line->text().length() < 34) {
-        if ((button->text() != '0' && button->text() != 'x' && button->text() != '/' && button->text() != "mod") ||
-                !ui->input_line->text().isEmpty()) {
+        if ((button->text() != 'x' && button->text() != '/' && button->text() != "mod") || !ui->input_line->text().isEmpty()) {
             if (button->text() == "x") {
                 ui->input_line->setText(ui->input_line->text() + "*");
             } else {
@@ -52,8 +58,6 @@ void MainWindow::enter() //ввод строки
         }
     }
 }
-
-
 
 void MainWindow::on_pushButton_del_clicked()
 {
@@ -67,13 +71,29 @@ void MainWindow::on_pushButton_equal_clicked()
         QString s = ui->input_line->text() + '=';
         Analyzer a;
         if (a.str_test(s, 0)) {
+
             Alg RPN;
 
-            ui->resultPlace->setText(RPN.count(s));
-        } else {
-            ui->resultPlace->setText("uncorrect");
 
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+            ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+
+            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1,0, new QTableWidgetItem(s));
+            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1,1, new QTableWidgetItem(RPN.count(s)));
+            ui->input_line->setText("");
+
+
+        } else {
+             ui->input_line->setText("INCORRECT");
         }
+    }
+}
+
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Return) {
+        on_pushButton_equal_clicked();
     }
 }
 
